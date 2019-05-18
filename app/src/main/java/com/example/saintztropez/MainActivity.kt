@@ -97,7 +97,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 return true
             }
-            R.id.browse -> return true
+            R.id.browse -> {
+                val uri: String = "http://www.yahoo.co.jp"
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(uri)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+                return true
+            }
         }
         return super.onContextItemSelected(item)
     }
