@@ -69,7 +69,22 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
-            R.id.mail -> return true
+            R.id.mail -> {
+                val email = "nobody@example.com"
+                val subject = "予約問い合わせ"
+                val text = "以下の通り予約希望します"
+                val uri = Uri.parse("mailto:")
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = uri
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+                      .putExtra(Intent.EXTRA_SUBJECT, subject)
+                      .putExtra(Intent.EXTRA_TEXT, text)
+                // intentを処理するアプリがあるかチェックする
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+                return true
+            }
             R.id.share -> return true
             R.id.browse -> return true
         }
