@@ -2,8 +2,10 @@ package com.example.saintztropez
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         webView.settings.javaScriptEnabled = true
         webView.loadUrl("file:///android_asset/html/index.html")
+
+        registerForContextMenu(webView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,5 +50,20 @@ class MainActivity : AppCompatActivity() {
         }
         // これはお作法 whenのどれにも該当しない場合に備えている
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.context, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.sms -> return true
+            R.id.mail -> return true
+            R.id.share -> return true
+            R.id.browse -> return true
+        }
+        return super.onContextItemSelected(item)
     }
 }
